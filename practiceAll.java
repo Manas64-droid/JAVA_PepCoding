@@ -210,6 +210,22 @@ public class practiceAll {
         }
         return false;
     }
+    public static ArrayList<Integer> nodeToRootPath(Node node, int data) {
+        //! in case it itself contains that data
+        if(node.data==data){
+            ArrayList<Integer> list=new ArrayList<>();
+            list.add(node.data);
+            return list;
+        }
+        for(Node child:node.children){
+            ArrayList<Integer> childTillPath=nodeToRootPath(child, data);
+            if(childTillPath.size()>0){
+                childTillPath.add(node.data);
+                return childTillPath;
+            }
+        }
+        return new ArrayList<>();
+    }
     public static void main(String[] args) {
         int arr[]={10,20,50,-1,60,-1,-1,30,70,-1,80,110,-1,120,-1,-1,90,-1,-1,40,100,-1,-1,-1};
         Stack<Node> st=new Stack<>();
@@ -254,12 +270,17 @@ public class practiceAll {
         // linearizeGT2(head);
         // levelOrderLinewise1(head);
 
-        if(findElement(head, 40)){
-            System.out.println("Element Found");
-        }
-        else{
-            System.out.println("Element Not Found");
-        }
+        // if(findElement(head, 40)){
+        //     System.out.println("Element Found");
+        // }
+        // else{
+        //     System.out.println("Element Not Found");
+        // }
+        
+        // ArrayList<Integer> lst=new ArrayList<>();
+        // lst=nodeToRootPath(head, 110);
+        // Collections.reverse(lst);
+        // System.out.println(lst);
 
     }
 }
