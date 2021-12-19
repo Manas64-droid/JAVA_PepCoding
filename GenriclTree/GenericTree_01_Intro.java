@@ -4,7 +4,6 @@ public class GenericTree_01_Intro {
     public static class Node{
         int data;
         Node(){
-
         }
         Node(int data){
             this.data=data;
@@ -15,7 +14,6 @@ public class GenericTree_01_Intro {
         private Node node;
         private int level;
         Pair(){
-
         }
         Pair(Node node,int level){
             this.node=node;
