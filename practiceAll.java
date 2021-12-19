@@ -226,6 +226,29 @@ public class practiceAll {
         }
         return new ArrayList<>();
     }
+    public static int lowestCommanAncenstor(Node node,int num1,int num2){
+        ArrayList<Integer> lst1=nodeToRootPath(node, num1);
+        ArrayList<Integer> lst2=nodeToRootPath(node, num2);
+        int i=lst1.size()-1;
+        int j=lst2.size()-1;
+        while(i>=0 && j>=0 && lst1.get(i)==lst2.get(j)){
+            i--;
+            j--;
+        }
+        return lst1.get(i+1);
+    }
+    public static int distanceBetweenNodes(Node node,int num1,int num2){
+        ArrayList<Integer> lst1=nodeToRootPath(node, num1);
+        ArrayList<Integer> lst2=nodeToRootPath(node, num2);
+        int i=lst1.size()-1;
+        int j=lst2.size()-1;
+        while(i>=0 && j>=0 && lst1.get(i)==lst2.get(j)){
+            i--;
+            j--;
+        }
+        return i+j+2;
+    }
+    
     public static void main(String[] args) {
         int arr[]={10,20,50,-1,60,-1,-1,30,70,-1,80,110,-1,120,-1,-1,90,-1,-1,40,100,-1,-1,-1};
         Stack<Node> st=new Stack<>();
@@ -282,5 +305,7 @@ public class practiceAll {
         // Collections.reverse(lst);
         // System.out.println(lst);
 
+        // System.out.println(lowestCommanAncenstor(head, 50, 60));
+        System.out.println(distanceBetweenNodes(head, 50, 60));
     }
 }
