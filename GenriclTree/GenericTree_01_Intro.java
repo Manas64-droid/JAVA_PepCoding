@@ -20,6 +20,7 @@ public class GenericTree_01_Intro {
             this.level=level;
         }
     }
+    //! for printeing data of node 
     public static void display(Node node){
         String str=node.data+"->";
         for(Node child:node.children){
@@ -31,6 +32,7 @@ public class GenericTree_01_Intro {
             display(sub_childs);
         }
     }
+    //! return size of tree
     public static int size(Node node){
         int size=0;
         for(Node child:node.children){
@@ -104,6 +106,7 @@ public class GenericTree_01_Intro {
     public static void levelOrderLinewise1(Node node){
         Queue<Node> root=new ArrayDeque<>();
         Queue<Node> leaf=new ArrayDeque<>();
+        //! remove print addChildren
         root.add(node);
         while(root.size()>0){
             node=root.remove();
@@ -201,11 +204,6 @@ public class GenericTree_01_Intro {
         }
     }
     public static void mirror(Node node){
-        Queue<Node> qu =new ArrayDeque<>();
-        qu.add(node);
-        while(qu.size()>0){
-            node=qu.remove();
-        }
         if(node.children.size()!=0){
             Collections.reverse(node.children);
         }
@@ -214,18 +212,22 @@ public class GenericTree_01_Intro {
         }
     }
     public static void removeLeves(Node node){
-        for(int i=node.children.size()-1;i>0;i--){
+        //! traverse loop backwards 
+        //! if child dont have childs remove sub-child
+        for(int i=node.children.size()-1;i>=0;i--){
             Node child=node.children.get(i);
             if(child.children.size()==0){
                 node.children.remove(child);
             }
         }
+        //! call recurssion
         for(Node child:node.children){
             removeLeves(child);
         }
     }
 
     public static void linearizeGT1(Node node){
+        //! traversing from root so root will have to only one children -(multilecel chid)
         for(Node child:node.children){
             linearizeGT1(child);
         }
@@ -249,7 +251,7 @@ public class GenericTree_01_Intro {
 
     public static Node linearizeGT2(Node node){
         if(node.children.size()==0){
-            return node;//! becoz its leaf
+            return node;//! return becoz its leaf
         }
         Node lastTail=linearizeGT2(node.children.get(node.children.size()-1));
         while(node.children.size()>1){
@@ -263,7 +265,7 @@ public class GenericTree_01_Intro {
 
     public static boolean findElement(Node node,int target){
         if(node.children.size()==0 && node.data==target){
-            return true;
+            return true;//! it may be leaf with target value
         }
         for(Node child:node.children){
             boolean firstChild=findElement(child, target);
@@ -320,7 +322,10 @@ public class GenericTree_01_Intro {
         Stack<Node> stack=new Stack<>();
         int arr[]={10,20,50,-1,60,-1,-1,30,70,-1,80,110,-1,120,-1,-1,90,-1,-1,40,100,-1,-1,-1};
         for(int i=0;i<arr.length;i++){
-            // cheak for -1 if -1 then pop
+            // ! cheak for -1 if -1 then pop
+            //! pop -1-make new node-initaiate data property to it-conect node to cildren  
+            //! else make node as head
+            //! push
             if(arr[i]==-1){
                 stack.pop();
             }
