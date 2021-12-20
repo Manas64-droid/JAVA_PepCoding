@@ -328,4 +328,4 @@
 30x9=270
 30x10=300
 
-Currently i am into my Ubuntu System 
+Currently i am into my Ubuntu System ..
