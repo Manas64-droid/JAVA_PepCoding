@@ -327,3 +327,5 @@
 30x8=240
 30x9=270
 30x10=300
+
+Currently i am into my Ubuntu System 
