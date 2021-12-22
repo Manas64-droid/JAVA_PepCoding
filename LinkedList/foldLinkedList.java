@@ -6,7 +6,7 @@ public class foldLinkedList {
         private Node next;
     }
     public static class CustomeLinkedList{
-        private Node root;
+        private Node head;
         private Node tail;
         private int size;
 
@@ -15,7 +15,7 @@ public class foldLinkedList {
             node.data=val;
             node.next=null;
             if(size==0){
-                root=tail=node;
+                head=tail=node;
             }
 			tail.next=node;
 			tail=node;
@@ -24,15 +24,15 @@ public class foldLinkedList {
 		public void addFirst(int val){
 			Node node=new Node();
 			node.data=val;
-			node.next=root;
-			root=node;
+			node.next=head;
+			head=node;
 			if(size==0){
 				tail=node;
 			}
 			size--;
 		}
 		public void display(){
-			Node temp=root;
+			Node temp=head;
 			while(temp!=null){
 				System.out.print(temp.data+" ");
 				temp=temp.next;
@@ -42,8 +42,8 @@ public class foldLinkedList {
 		
 		Node left;
 		public void foldLL(){
-			left=root;
-			foldLL_Helper(root,0);
+			left=head;
+			foldLL_Helper(head,0);
 		}
 		public void foldLL_Helper(Node right,int floor){
 			if(right==null){
@@ -61,15 +61,15 @@ public class foldLinkedList {
 				tail.next=null;
 			}
 		}
-		public void unfoldLL(Node root){
-			if(root==null || root.next==null)return;
-			Node firstroot=root;
-			Node firstPointer=firstroot;
-			Node secondroot=root.next;
-			Node secondPointer=secondroot;
+		public void unfoldLL(Node head){
+			if(head==null || head.next==null)return;
+			Node firsthead=head;
+			Node firstPointer=firsthead;
+			Node secondhead=head.next;
+			Node secondPointer=secondhead;
 
 			while(secondPointer!=null && secondPointer.next!=null){
-				Node forward=secondroot.next;
+				Node forward=secondhead.next;
 				firstPointer=forward;
 				secondPointer=forward.next;
 
@@ -78,15 +78,15 @@ public class foldLinkedList {
 				// forward=forward.next;
 			}
 			firstPointer.next=null;
-			secondroot=reveseLinkeedListRecursive(secondroot);
-			firstPointer.next=secondroot;
+			secondhead=reveseLinkeedListRecursive(secondhead);
+			firstPointer.next=secondhead;
 		}
-		private Node reveseLinkeedListRecursive(Node secondroot) {
-			if(secondroot==null){
-				return secondroot;
+		private Node reveseLinkeedListRecursive(Node secondhead) {
+			if(secondhead==null){
+				return secondhead;
 			}
-			reveseLinkeedListRecursive(secondroot.next);
-			return secondroot;
+			reveseLinkeedListRecursive(secondhead.next);
+			return secondhead;
 		}
 		
     }
@@ -112,7 +112,7 @@ public class foldLinkedList {
 		unfold.addLast(30);
 		unfold.display();
 		CustomeLinkedList ans=new CustomeLinkedList();
-		ans.unfoldLL(unfold.root);
+		ans.unfoldLL(unfold.head);
 		ans.display();
 	}
 }

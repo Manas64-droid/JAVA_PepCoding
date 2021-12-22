@@ -5,7 +5,7 @@ public class palindromeLinkedList {
         private Node next;
     }
     public static class CustomLinkedList{
-        private Node root;
+        private Node head;
         private Node tail;
         private int size;
 
@@ -14,14 +14,14 @@ public class palindromeLinkedList {
             node.data=val;
             node.next=null;
             if(size==0){
-                root=tail=node;
+                head=tail=node;
             }
             tail.next=node;
             tail=node;
             size++;
         }
         public void display(){
-            Node temp=root;
+            Node temp=head;
             while(temp!=null){
                 System.out.print(temp.data+" ");
                 temp=temp.next;
@@ -30,8 +30,8 @@ public class palindromeLinkedList {
         }
         Node left;
         public boolean isPalindrome(){
-            left=root;
-            return isPalindrome_Helper(root);
+            left=head;
+            return isPalindrome_Helper(head);
         }
         private boolean isPalindrome_Helper(Node right) {
             if(right==null){

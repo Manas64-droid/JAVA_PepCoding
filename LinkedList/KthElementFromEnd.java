@@ -7,7 +7,7 @@ public class KthElementFromEnd {
         // private Node privious;
     }
     public static class CustomeLinkedList{
-        private Node root;
+        private Node head;
         private Node tail;
         private int size;
 
@@ -16,7 +16,7 @@ public class KthElementFromEnd {
             node.data=val;
             node.next=null;
             if(size==0){
-                root=tail=node;
+                head=tail=node;
             }
             else{
                 tail.next=node;
@@ -25,8 +25,8 @@ public class KthElementFromEnd {
             size++;
         }
         public int KthElementFromEnd(int index){
-            Node slow=root;
-            Node fast=root;
+            Node slow=head;
+            Node fast=head;
             for(int i=1;i<=index;i++){
                 fast=fast.next;
             }

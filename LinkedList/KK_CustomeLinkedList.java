@@ -2,7 +2,7 @@ package LinkedList;
 
 public class KK_CustomeLinkedList {
     public static class CustomeLinkedList{
-        private Node root;
+        private Node head;
         private Node tell;
         private int size;
         CustomeLinkedList(){
@@ -23,10 +23,10 @@ public class KK_CustomeLinkedList {
         public void insertFirst(int val){
             Node node=new Node(val);
             if(tell==null){
-                tell=root;
+                tell=head;
             }
-            node.next=root;
-            root=node;
+            node.next=head;
+            head=node;
             this.size+=1;
         }
         //! -> insert at last 
@@ -50,7 +50,7 @@ public class KK_CustomeLinkedList {
                 insertLast(val);
                 return;
             }
-            Node temp=root;
+            Node temp=head;
             for(int i=0;i<index;i++){
                 temp=temp.next;
             }            
@@ -60,12 +60,12 @@ public class KK_CustomeLinkedList {
         }
         //! remove fisrt element
         public void removeFirst(){
-            root.next=root;
+            head.next=head;
             
         }
         //! -> display function
         public void display(){
-            Node temp=root;
+            Node temp=head;
             while(temp!=null){
                 System.out.print(temp.value+"->");
                 temp=temp.next;

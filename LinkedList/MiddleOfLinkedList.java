@@ -7,7 +7,7 @@ public class MiddleOfLinkedList {
     }
     public static class CustomeLinkedList{
         private int size;
-        private Node root;
+        private Node head;
         private Node tail;
         
         public void addLast(int val){
@@ -15,7 +15,7 @@ public class MiddleOfLinkedList {
             node.data=val;
             node.next=null;
             if(size==0){
-                root=tail=node;
+                head=tail=node;
             }
             else{
                 tail.next=node;
@@ -25,7 +25,7 @@ public class MiddleOfLinkedList {
         }
         //! my approch
         public int middleLinkedList(){
-            Node temp=root;
+            Node temp=head;
             int len=(size-1)/2;
             for(int i=0;i<len;i++){
                 temp=temp.next;
@@ -33,8 +33,8 @@ public class MiddleOfLinkedList {
             return temp.data;
         }
         public int middleLinkedList1(){
-            Node slow=root;
-            Node fast=root;
+            Node slow=head;
+            Node fast=head;
             while(fast.next!=null && fast.next.next!=null){
                 fast=fast.next.next;
                 slow=slow.next;
@@ -42,7 +42,7 @@ public class MiddleOfLinkedList {
             return slow.data;
         }
         void display(){
-            Node temp=root;
+            Node temp=head;
             while(temp!=null){
                 System.out.print(temp.data+"->");
                 temp=temp.next;
