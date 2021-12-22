@@ -5,7 +5,7 @@ public class DSA1_LinkedList {
         private Node next;
     }
     public static class LinkedList{
-        private Node head;
+        private Node root;
         private Node tell;
         private int size;
         
@@ -14,7 +14,7 @@ public class DSA1_LinkedList {
             node.data=val;
             node.next=null;
             if(size==0){
-                head=tell=node;
+                root=tell=node;
             }
             else{
                 tell.next=node;
@@ -25,14 +25,14 @@ public class DSA1_LinkedList {
         public void addFirst(int val){
             Node node=new Node();
             node.data=val;
-            node.next=head;
-            head=node;
+            node.next=root;
+            root=node;
             size++;
         }
         public void addAtIndex(int val,int index){
             Node node=new Node();
             node.data=val;
-            Node temp=head;
+            Node temp=root;
             for(int i=0;i<index-1;i++){
                 temp=temp.next;
             }
@@ -45,16 +45,16 @@ public class DSA1_LinkedList {
                 System.out.println("LinkedList is empety");
             }
             else if(size==1){
-                head=tell=null;
+                root=tell=null;
                 size=0;
             }
             else{
-                head=head.next;
+                root=root.next;
                 size--;
             }
         }
         public void removeLast(){
-            Node temp=head;
+            Node temp=root;
             for(int i=0;i<size-2;i++){
                 temp=temp.next;
             }
@@ -63,7 +63,7 @@ public class DSA1_LinkedList {
             size--;
         }
         void display(){
-            Node temp=head;
+            Node temp=root;
             while(temp!=null){
                 System.out.print(temp.data+"->");
                 temp=temp.next;
@@ -87,7 +87,7 @@ public class DSA1_LinkedList {
             System.out.println("Size of LinkedList->"+size);
         }
         public int getFirst(){
-            return head.data;
+            return root.data;
         }
         public int getLast(){
             return tell.data;
@@ -101,7 +101,7 @@ public class DSA1_LinkedList {
                 System.out.println("Invalid Input");
                 return 0;
             }
-            Node temp=head;
+            Node temp=root;
             for(int i=0;i<index;i++){
                 temp=temp.next;
             }
@@ -116,14 +116,14 @@ public class DSA1_LinkedList {
                 System.out.println("Invalid Input");
                 // return 0;
             }
-            Node temp=head;
+            Node temp=root;
             for(int i=0;i<index;i++){
                 temp=temp.next;
             }
             return temp;
         }
         public void removeIndexElement(int index){
-            Node temp=head;
+            Node temp=root;
             for(int i=0;i<index-1;i++){
                 temp=temp.next;
             }

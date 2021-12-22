@@ -5,15 +5,15 @@ public class addTwoLinkedList {
         private int data;
     }
     public static class CustomLinkedList{
-        private Node head;
+        private Node root;
         private Node tail;
         private int size;
 
         public void addFirst(int val){
             Node node=new Node();
             node.data=val;
-            node.next=head;
-            head=node;
+            node.next=root;
+            root=node;
             if(size==0){
                 tail=node;
             }
@@ -24,7 +24,7 @@ public class addTwoLinkedList {
             node.data=val;
             node.next=null;
             if(size==0){
-                head=tail=node;
+                root=tail=node;
             }else{    
                 tail.next=node;
                 tail=node;
@@ -32,7 +32,7 @@ public class addTwoLinkedList {
             size++;
         }
         public void display(){
-            Node temp=head;
+            Node temp=root;
             while(temp!=null){
                 System.out.print(temp.data);
                 temp=temp.next;
@@ -41,7 +41,7 @@ public class addTwoLinkedList {
         }
         public static CustomLinkedList addTwoLL(CustomLinkedList lst1,CustomLinkedList lst2){
             CustomLinkedList lst=new CustomLinkedList();
-            int c=addTwoLL_Helper(lst1.head,lst1.size, lst2.head,lst2.size,lst);
+            int c=addTwoLL_Helper(lst1.root,lst1.size, lst2.root,lst2.size,lst);
             if(c>0){
                 lst.addFirst(c);
             }

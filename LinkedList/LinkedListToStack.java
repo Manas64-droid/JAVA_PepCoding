@@ -6,28 +6,28 @@ public class LinkedListToStack {
         private Node next;
     }
     public static class CustomeLinkedList{
-        private Node head;
+        private Node root;
         private Node tell;
         private int size;
         
         public void addFirst(int val){
             Node node=new Node();
             node.data=val;
-            node.next=head;
-            head=node;
+            node.next=root;
+            root=node;
             size++;
         }
         public int removeFirst(){
-            head=head.next;
+            root=root.next;
             size--;
-            return head.data;
+            return root.data;
         }
         public int getFirst(){
-            return head.data;
+            return root.data;
         }
         public void display(){
-            Node temp=head;
-            while(head!=null){
+            Node temp=root;
+            while(root!=null){
                 System.out.print(temp.data+"->");
                 temp=temp.next;
             }

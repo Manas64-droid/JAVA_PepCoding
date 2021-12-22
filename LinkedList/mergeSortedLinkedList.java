@@ -8,7 +8,7 @@ public class mergeSortedLinkedList{
         private Node next;
     }
     public static class CustomLinkedList{
-        private Node head;
+        private Node root;
         private Node tail;
         private int size;
 
@@ -17,7 +17,7 @@ public class mergeSortedLinkedList{
             node.data=val;
             node.next=null;
             if(this.size==0){
-                head=tail=node;
+                root=tail=node;
             }
             else{
                 tail.next=node;
@@ -25,15 +25,15 @@ public class mergeSortedLinkedList{
             }
             size++;
         }
-        public CustomLinkedList mergeSort(Node head, Node tail){
-            if(head == tail){
+        public CustomLinkedList mergeSort(Node root, Node tail){
+            if(root == tail){
                 CustomLinkedList br = new CustomLinkedList();
-                br.addLast(head.data);
+                br.addLast(root.data);
                 return br;
             }
     
-            Node mid = midElement(head, tail);
-            CustomLinkedList fsh = mergeSort(head, mid);
+            Node mid = midElement(root, tail);
+            CustomLinkedList fsh = mergeSort(root, mid);
             CustomLinkedList ssh = mergeSort(mid.next, tail);
             CustomLinkedList sl = mergeCustomLinkedList(fsh, ssh);
             return sl;
@@ -42,8 +42,8 @@ public class mergeSortedLinkedList{
 
         public static CustomLinkedList mergeCustomLinkedList(CustomLinkedList lst1,CustomLinkedList lst2){
             CustomLinkedList ans=new CustomLinkedList();
-            Node one=lst1.head;
-            Node two=lst2.head;
+            Node one=lst1.root;
+            Node two=lst2.root;
             while(one!=null && two!=null){
                 if(one.data>two.data){
                     ans.addLast(one.data);
@@ -66,9 +66,9 @@ public class mergeSortedLinkedList{
         }
         //! for finding mid of LinkedList
         //! move slow by one step & move fast by two till null reaches
-        public static Node midElement(Node head,Node tail){
-            Node slow=head;
-            Node fast=head;
+        public static Node midElement(Node root,Node tail){
+            Node slow=root;
+            Node fast=root;
             while(fast!=tail && fast.next!=tail){
                 slow=slow.next;
                 fast=fast.next.next;
@@ -76,7 +76,7 @@ public class mergeSortedLinkedList{
             return slow;
         }
         public void display(){
-            Node temp=head;
+            Node temp=root;
             while(temp!=null){
                 System.out.print(temp.data+"->");
                 temp=temp.next;
@@ -98,9 +98,9 @@ public class mergeSortedLinkedList{
         lst1.addLast(4);
         lst1.addLast(3);
         // CustomLinkedList lst2=new CustomLinkedList(); 
-        // ans=lst1.mergeSorted(lst1.head, lst1.tail);
+        // ans=lst1.mergeSorted(lst1.root, lst1.tail);
         // ans=lst2.returnBoth(lst1);
-        ans=ans.mergeSort(lst1.head, lst1.tail);
+        ans=ans.mergeSort(lst1.root, lst1.tail);
         ans.display();
     }
 }

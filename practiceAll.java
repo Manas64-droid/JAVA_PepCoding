@@ -1,4 +1,5 @@
 import java.util.*;
+
 public class practiceAll {
     public static class Node{
         int data;
@@ -9,6 +10,27 @@ public class practiceAll {
             this.data=data;
         }
         ArrayList<Node> children=new ArrayList<>();
+    }
+    public static Node constructRoot(int arr[]){
+        Node root=null;
+        Stack<Node> st=new Stack<>();
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]==-1){
+                st.pop();
+            }
+            else{
+                Node node=new Node();
+                node.data=arr[i];
+                if(st.size()>0){
+                    st.peek().children.add(node);
+                }
+                else{
+                    root=node;
+                }
+                st.push(node);
+            }
+        }
+        return root;
     }
     public static void display(Node node){
         String str=node.data+"->";
@@ -248,52 +270,50 @@ public class practiceAll {
         }
         return i+j+2;
     }
-    
-    public static void main(String[] args) {
-        int arr[]={10,20,50,-1,60,-1,-1,30,70,-1,80,110,-1,120,-1,-1,90,-1,-1,40,100,-1,-1,-1};
-        Stack<Node> st=new Stack<>();
-        Node head=null;
-        for(int i=0;i<arr.length;i++){
-            if(arr[i]==-1){
-                st.pop();
-            }
-            else{
-                Node node=new Node();
-                node.data=arr[i];
-
-                if(st.size()>0){
-                    st.peek().children.add(node);
-                }
-                else{
-                    head=node;
-                }
-                st.push(node);
+    public static boolean areTreeSmiler(Node a,Node b){
+        if(a.children.size()!=b.children.size()){
+            return false;
+        }
+        for(int i=0;i<a.children.size();i++){
+            Node c1=a.children.get(i);
+            Node c2=b.children.get(i);
+            boolean ifChild=areTreeSmiler(c1, c2);
+            if(ifChild==false){
+                return false;
             }
         }
-        // display(head);
-        // System.out.println(size(head));
-        // System.out.println(max(head));
-        // System.out.println(edgeHight(head));
-        // System.out.println(nodeHeight(head));
+        return true;
+    }
+    public static void main(String[] args) {
+        int arr[]={10,20,50,-1,60,-1,-1,30,70,-1,80,110,-1,120,-1,-1,90,-1,-1,40,100,-1,-1,-1};
+        int arr1[]={1 ,2 ,5 ,-1 ,6 ,-1 ,-1 ,3 ,7 ,-1 ,8 ,11 ,-1 ,12 ,-1 ,-1 ,9 ,-1 ,-1 ,4 ,10 ,-1 ,-1 ,-1};
         
-        // traversal(head);
-        // levelOrderTraveral(head);
-        // levelOrderLinewise1(head);
-        // levelOrderLinewise2(head);
+        Node root=constructRoot(arr);
+        Node root1=constructRoot(arr1);
+        // display(root);
+        // System.out.println(size(root));
+        // System.out.println(max(root));
+        // System.out.println(edgeHight(root));
+        // System.out.println(nodeHeight(root));
+        
+        // traversal(root);
+        // levelOrderTraveral(root);
+        // levelOrderLinewise1(root);
+        // levelOrderLinewise2(root);
         // System.out.println();
-        // zigzagLinewise(head);
+        // zigzagLinewise(root);
         
-        // mirror(head);
-        // levelOrderLinewise1(head);
+        // mirror(root);
+        // levelOrderLinewise1(root);
 
-        // removeLeves(head);
-        // levelOrderLinewise1(head);
+        // removeLeves(root);
+        // levelOrderLinewise1(root);
 
-        // linearizeGT1(head);
-        // linearizeGT2(head);
-        // levelOrderLinewise1(head);
+        // linearizeGT1(root);
+        // linearizeGT2(root);
+        // levelOrderLinewise1(root);
 
-        // if(findElement(head, 40)){
+        // if(findElement(root, 40)){
         //     System.out.println("Element Found");
         // }
         // else{
@@ -301,11 +321,13 @@ public class practiceAll {
         // }
         
         // ArrayList<Integer> lst=new ArrayList<>();
-        // lst=nodeToRootPath(head, 110);
+        // lst=nodeToRootPath(root, 110);
         // Collections.reverse(lst);
         // System.out.println(lst);
 
-        // System.out.println(lowestCommanAncenstor(head, 50, 60));
-        System.out.println(distanceBetweenNodes(head, 50, 60));
+        // System.out.println(lowestCommanAncenstor(root, 50, 60));
+        // System.out.println(distanceBetweenNodes(root, 50, 60));
+        
+        System.out.println(areTreeSmiler(root,root1));
     }
 }

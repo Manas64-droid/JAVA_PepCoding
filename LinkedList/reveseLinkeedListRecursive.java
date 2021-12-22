@@ -5,7 +5,7 @@ public class reveseLinkeedListRecursive {
         private int data;
     }
     public static class CustomArrayList{
-        private Node head;
+        private Node root;
         private Node tail;
         private int size;
 
@@ -14,14 +14,14 @@ public class reveseLinkeedListRecursive {
             node.data=val;
             node.next=null;
             if(size==0){
-                head=tail=node;
+                root=tail=node;
             }
             tail.next=node;
             tail=node;
             size++;
         }
         public void display(){
-            Node temp=head;
+            Node temp=root;
             while(temp!=null){
                 System.out.print(temp.data+" ");
                 temp=temp.next;
@@ -29,8 +29,8 @@ public class reveseLinkeedListRecursive {
             System.out.println();
         }
         // ! Method 1 : Normal Reverse
-        private void reveseLLRecursively(Node head){
-            reveseLLRecursivelyHelper(head);
+        private void reveseLLRecursively(Node root){
+            reveseLLRecursivelyHelper(root);
             System.out.println();
         }
         private void reveseLLRecursivelyHelper(Node node) {
@@ -42,10 +42,10 @@ public class reveseLinkeedListRecursive {
         }
         //! Method 2 : pointer Recursive:- By Exchanging Pointers
         private void reveseLLRecursively_Another(){
-            reveseLLRecursively_AnotherHelper(head);
-            head.next=null;
-            Node temp=head;
-            head=tail;
+            reveseLLRecursively_AnotherHelper(root);
+            root.next=null;
+            Node temp=root;
+            root=tail;
             tail=temp;
         }
         private void reveseLLRecursively_AnotherHelper(Node node){
@@ -63,8 +63,8 @@ public class reveseLinkeedListRecursive {
         //! METHOD 2 : Data Recursive:- By Exchanging Data
         Node left;
         public void reveseLLRecursively_Another1(){
-            left=head;
-            reveseLLRecursively_AnotherHelper1(head,0);
+            left=root;
+            reveseLLRecursively_AnotherHelper1(root,0);
         }
         private void reveseLLRecursively_AnotherHelper1(Node right,int floor) {
             if(right==null){
@@ -89,7 +89,7 @@ public class reveseLinkeedListRecursive {
             lst.addLast(i*5);  
         }
         lst.display();
-        // lst.reveseLLRecursively(lst.head);
+        // lst.reveseLLRecursively(lst.root);
         lst.reveseLLRecursively_Another();
         // lst.reveseLLRecursively_Another1();
         lst.display();

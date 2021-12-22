@@ -7,7 +7,7 @@ public class LinkedListToQueue{
     }
     public static class CustomeLinkedList{
         private int size;
-        private Node head;
+        private Node root;
         private Node tail;
         //! return size of LinkedList
         public int size(){
@@ -19,7 +19,7 @@ public class LinkedListToQueue{
             node.data=val;
             node.next=null;
             if(this.size==0){
-                head=tail=node;
+                root=tail=node;
             }
             else{
                 tail.next=node;
@@ -32,15 +32,15 @@ public class LinkedListToQueue{
             if(size==0){
                 System.out.println("Queue is empty");
             }
-            head=head.next;
+            root=root.next;
             size--;
         }
-        //! return data at head of LikedList
+        //! return data at root of LikedList
         public int getFirst(){
-            return head.data;
+            return root.data;
         }
         public void display(){
-            Node temp=head;
+            Node temp=root;
             System.out.print("[");
             while(temp!=null){
                 System.out.print(temp.data+" ");

@@ -8,7 +8,7 @@ public class DuplicateElementInSortedLL {
         private Node next;
     }
     public static class CustomLinkedList{
-        private Node head;
+        private Node root;
         private Node tail;
         private int size;
 
@@ -17,7 +17,7 @@ public class DuplicateElementInSortedLL {
             node.data=val;
             node.next=null;
             if(this.size==0){
-                head=tail=node;
+                root=tail=node;
             }
             else{
                 tail.next=node;
@@ -26,10 +26,10 @@ public class DuplicateElementInSortedLL {
             size++;
         }
         public void sort(){
-            if(head==null){
+            if(root==null){
                 return;
             }
-            Node current=head;
+            Node current=root;
             Node index=null;
             int temp;
             while(current!=null){
@@ -46,7 +46,7 @@ public class DuplicateElementInSortedLL {
             }
         }
         public void display(){
-            Node temp=head;
+            Node temp=root;
             while(temp!=null){
                 System.out.print(temp.data+"->");
                 temp=temp.next;
@@ -57,15 +57,15 @@ public class DuplicateElementInSortedLL {
             return this.size;
         }
         public int getFirst(){
-            return head.data;
+            return root.data;
         }
         public void removeFirst(){
-            head=head.next;
+            root=root.next;
             size--;
         }
         public void removeDuplicate(CustomLinkedList l){
-            Node temp=l.head;
-            Node second=l.head;
+            Node temp=l.root;
+            Node second=l.root;
             while(temp!=null){
                 second=temp;
                 while(temp.next!=null && temp.data==temp.next.data){
@@ -84,7 +84,7 @@ public class DuplicateElementInSortedLL {
                     lst.addLast(val);
                 }
             }
-            this.head=lst.head;
+            this.root=lst.root;
             this.tail=lst.tail;
             this.size=lst.size;
             // return lst;

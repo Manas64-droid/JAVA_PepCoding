@@ -374,6 +374,21 @@ public class GenericTree_01_Intro {
         }
         return true;
     }
+    public static boolean areTreesMirror(Node a,Node b){
+        if(a.children.size()!=b.children.size()){
+            return false;
+        }
+        for(int i=0;i<a.children.size();i++){
+            int j=a.children.size()-1-i;
+            Node c1=a.children.get(i);
+            Node c2=b.children.get(j);
+            boolean ifChild=areTreesMirror(c1, c2);
+            if(ifChild==false){
+                return false;
+            }
+        }
+        return true;
+    }
     public static void main(String[] args) {
 
         int arr[] = {10,20,50,-1,60,-1,-1,30,70,-1,80,110,-1,120,-1,-1,90,-1,-1,40,100,-1,-1,-1};
@@ -413,6 +428,7 @@ public class GenericTree_01_Intro {
         // System.out.println();
         // display(root);
 
-        System.out.println(areTreesSimilar(root, root1));
+        // System.out.println(areTreesSimilar(root, root1));
+        System.out.println(areTreesMirror(root, root1));
     }
 }

@@ -6,15 +6,15 @@ public class kthReverseElements {
         private int data;
     }
     public static class CustomLinkedList{
-        private Node head;
+        private Node root;
         private Node tail;
         private int size;
         //! add Functions
         public void addFirst(int val){
             Node node=new Node();
             node.data=val;
-            node.next=head;
-            head=node;
+            node.next=root;
+            root=node;
             if(size==0){
                 tail=node;
             }
@@ -25,7 +25,7 @@ public class kthReverseElements {
             node.data=val;
             node.next=null;
             if(size==0){
-                head=tail=node;
+                root=tail=node;
             }
             tail.next=node;
             tail=node;
@@ -33,11 +33,11 @@ public class kthReverseElements {
         }
         //! remove functions
         public void removeFirst(){
-            head=head.next;
+            root=root.next;
             size--;
         }
         public void removeLast(){
-            Node temp=head;
+            Node temp=root;
             for(int i=0;i<size-2;i++){
                 temp=temp.next;
             }
@@ -47,13 +47,13 @@ public class kthReverseElements {
         }
         //! get functions
         public int getFirst(){
-            return head.data;
+            return root.data;
         }
         public int getLast(){
             return tail.data;
         }
         public int getIndexElement(int index){
-            Node temp =head;
+            Node temp =root;
             for(int i=0;i<index;i++){
                 temp=temp.next;
             }
@@ -61,7 +61,7 @@ public class kthReverseElements {
         }
         //! display fuction
         public void display(){
-            Node temp=head;
+            Node temp=root;
             while(temp!=null){
                 System.out.print(temp.data+" ");
                 temp=temp.next;
@@ -88,12 +88,12 @@ public class kthReverseElements {
                 if(previous==null){
                     previous=current;
                 }else{
-                    previous.tail.next=current.head;
+                    previous.tail.next=current.root;
                     previous.tail=current.tail;
                     previous.size=current.size;
                 }
             }
-            this.head=previous.head;
+            this.root=previous.root;
             this.tail=previous.tail;
             this.size=previous.size;
         }

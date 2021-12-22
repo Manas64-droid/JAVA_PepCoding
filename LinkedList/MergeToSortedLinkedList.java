@@ -7,7 +7,7 @@ public class MergeToSortedLinkedList{
     }
     public static class CustomLinkedList{
         private int size;
-        private Node head;
+        private Node root;
         private Node tail;
 
         public void addLast(int val){
@@ -15,7 +15,7 @@ public class MergeToSortedLinkedList{
             node.data=val;
             node.next=null;
             if(size==0){
-                head=tail=node;
+                root=tail=node;
             }
             else{
                 tail.next=node;
@@ -24,7 +24,7 @@ public class MergeToSortedLinkedList{
             size++;
         }
         public void display(){
-            Node temp=head;
+            Node temp=root;
             while(temp!=null){
                 System.out.print(temp.data+"->");
                 temp=temp.next;
@@ -32,11 +32,11 @@ public class MergeToSortedLinkedList{
             System.out.println();
         }
         public void sort(){
-            if(head==null){
+            if(root==null){
                 return;
             }
             int temp;
-            Node current=head;
+            Node current=root;
             Node index=null;
             while(current!=null){
                 //! node index will point to node next to current 
@@ -61,8 +61,8 @@ public class MergeToSortedLinkedList{
         //! Correct opperoch to merge the list in assending order
         public CustomLinkedList mergeTwoSortedLinkedList(CustomLinkedList lst1, CustomLinkedList lst2) {
             CustomLinkedList lst=new CustomLinkedList();
-            Node first=lst1.head;
-            Node second=lst2.head;
+            Node first=lst1.root;
+            Node second=lst2.root;
             while(first!=null && second!=null){
                 if(first.data>second.data){
                     lst.addLast(first.data);
@@ -84,8 +84,8 @@ public class MergeToSortedLinkedList{
             return lst;
         }
         public void removeDuplicate(){
-            Node first=head;
-            Node second=head;
+            Node first=root;
+            Node second=root;
             while(first!=null){
                 second=first;
                 while(first.next!=null && first.data==first.next.data){

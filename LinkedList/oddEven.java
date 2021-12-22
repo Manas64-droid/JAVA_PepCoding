@@ -6,7 +6,7 @@ public class oddEven {
         Node next;
     }
     public static class LinkedList {
-        Node head;
+        Node root;
         Node tail;
         int size;
     
@@ -16,7 +16,7 @@ public class oddEven {
             temp.next = null;
     
             if (size == 0) {
-                head = tail = temp;
+                root = tail = temp;
             } else {
             tail.next = temp;
             tail = temp;
@@ -29,7 +29,7 @@ public class oddEven {
         }
     
         public void display() {
-            for (Node temp = head; temp != null; temp = temp.next) {
+            for (Node temp = root; temp != null; temp = temp.next) {
                 System.out.print(temp.data + " ");
             }
             System.out.println();
@@ -39,10 +39,10 @@ public class oddEven {
             if (size == 0) {
                 System.out.println("List is empty");
             } else if (size == 1) {
-                head = tail = null;
+                root = tail = null;
                 size = 0;
             } else {
-                head = head.next;
+                root = root.next;
                 size--;
             }
         }
@@ -52,7 +52,7 @@ public class oddEven {
             System.out.println("List is empty");
             return -1;
             } else {
-            return head.data;
+            return root.data;
             }
         }
     
@@ -73,7 +73,7 @@ public class oddEven {
                 System.out.println("Invalid arguments");
                 return -1;
             } else {
-                Node temp = head;
+                Node temp = root;
                 for (int i = 0; i < idx; i++) {
                 temp = temp.next;
                 }
@@ -84,8 +84,8 @@ public class oddEven {
         public void addFirst(int val) {
             Node temp = new Node();
             temp.data = val;
-            temp.next = head;
-            head = temp;
+            temp.next = root;
+            root = temp;
             if (size == 0) {
                 tail = temp;
             }
@@ -101,7 +101,7 @@ public class oddEven {
             } else {
                 Node node = new Node();
                 node.data = val;
-                Node temp = head;
+                Node temp = root;
                 for (int i = 0; i < idx - 1; i++) {
                     temp = temp.next;
                 }
@@ -115,10 +115,10 @@ public class oddEven {
             if (size == 0) {
                 System.out.println("List is empty");
             } else if (size == 1) {
-                head = tail = null;
+                root = tail = null;
                 size = 0;
             } else {
-                Node temp = head;
+                Node temp = root;
                 for (int i = 0; i < size - 2; i++) {
                 temp = temp.next;
                 }
@@ -136,7 +136,7 @@ public class oddEven {
             } else if (idx == size - 1) {
                 removeLast();
             } else {
-                Node temp = head;
+                Node temp = root;
                 for (int i = 0; i < idx - 1; i++) {
                     temp = temp.next;
                 }
@@ -151,7 +151,7 @@ public class oddEven {
         */
         //! Intrative Approch for Reversing LinkedList
         private Node getNodeAt(int idx) {
-            Node temp = head;
+            Node temp = root;
             for (int i = 0; i < idx; i++) {
                 temp = temp.next;
             }
@@ -176,21 +176,21 @@ public class oddEven {
             return;
             }
             Node prev = null;
-            Node curr = head;
+            Node curr = root;
             while (curr != null) {
                 Node next = curr.next;
                 curr.next = prev;
                 prev = curr;
                 curr = next;
             }
-            Node temp = head;
-            head = tail;
+            Node temp = root;
+            root = tail;
             tail = temp;
         }
         //! finding element from last of the LinkedList
         public int kthFromLast(int k) {
-            Node slow = head;
-            Node fast = head;
+            Node slow = root;
+            Node fast = root;
             for (int i = 0; i < k; i++) {
                 fast = fast.next;
             }
@@ -203,8 +203,8 @@ public class oddEven {
         }
         //! Mid Element of Linkedlist
         public int mid() {
-            Node f = head;
-            Node s = head;
+            Node f = root;
+            Node s = root;
             while (f.next != null && f.next.next != null) {
                 f = f.next.next;
                 s = s.next;
@@ -214,8 +214,8 @@ public class oddEven {
         //! Code for Merging Two Lists
         public static LinkedList mergeTwoSortedLists(LinkedList l1, LinkedList l2) {
             LinkedList ml = new LinkedList();
-            Node one = l1.head;
-            Node two = l2.head;
+            Node one = l1.root;
+            Node two = l2.root;
             while (one != null && two != null) {
                 if (one.data < two.data) {
                 ml.addLast(one.data);
@@ -236,24 +236,24 @@ public class oddEven {
             return ml;
         }
         //! Merge Sort With midNode Code
-        public static Node midNode(Node head, Node tail){
-            Node f = head;
-            Node s = head;
+        public static Node midNode(Node root, Node tail){
+            Node f = root;
+            Node s = root;
             while(f != tail && f.next != tail){
                 f = f.next.next;
                 s = s.next;
             }
             return s;
         }
-        public static LinkedList mergeSort(Node head, Node tail){
-            if(head == tail){
+        public static LinkedList mergeSort(Node root, Node tail){
+            if(root == tail){
                 LinkedList br = new LinkedList();
-                br.addLast(head.data);
+                br.addLast(root.data);
                 return br;
             }
     
-            Node mid = midNode(head, tail);
-            LinkedList fsh = mergeSort(head, mid);
+            Node mid = midNode(root, tail);
+            LinkedList fsh = mergeSort(root, mid);
             LinkedList ssh = mergeSort(mid.next, tail);
             LinkedList sl = mergeTwoSortedLists(fsh, ssh);
             return sl;
@@ -269,7 +269,7 @@ public class oddEven {
                 res.addLast(val);
                 }
             }
-            this.head = res.head;
+            this.root = res.root;
             this.tail = res.tail;
             this.size = res.size;
         }
@@ -288,16 +288,16 @@ public class oddEven {
                 }
             }
             if(odd.size>0 && even.size>0){
-                odd.tail.next=even.head;
-                this.head=odd.head;
-                this.tail=even.head;
+                odd.tail.next=even.root;
+                this.root=odd.root;
+                this.tail=even.root;
                 this.size=odd.size+even.size;
             }else if(odd.size>0){
-                this.head=odd.head;
+                this.root=odd.root;
                 this.tail=odd.tail;
                 this.size=odd.size;
             }else{
-                this.head=even.head;
+                this.root=even.root;
                 this.tail=even.tail;
                 this.size=even.size;
             }
@@ -324,18 +324,18 @@ public class oddEven {
                 if(previous==null){
                     previous=current;
                 }else{
-                    previous.tail.next=current.head;
+                    previous.tail.next=current.root;
                     previous.tail=current.tail;
                     previous.size=current.size;
                 }
             }
-            this.head=previous.head;
+            this.root=previous.root;
             this.tail=previous.tail;
             this.size=previous.size;
         }
         //! All 3 Approches to revese the Linkedlist
-        private void reveseLinkeedListRecursively(Node head){
-            reveseLinkeedListRecursivelyHelper(head);
+        private void reveseLinkeedListRecursively(Node root){
+            reveseLinkeedListRecursivelyHelper(root);
         }
 
         private void reveseLinkeedListRecursivelyHelper(Node node) {
@@ -345,11 +345,11 @@ public class oddEven {
             reveseLinkeedListRecursivelyHelper(node.next);
             System.out.print(node.data+" ");
         }
-        private void reveseLLRecursively_Another(Node head){
-            reveseLLRecursively_AnotherHelper(head);
-            head=null;
-            Node temp=head;
-            head=tail;
+        private void reveseLLRecursively_Another(Node root){
+            reveseLLRecursively_AnotherHelper(root);
+            root=null;
+            Node temp=root;
+            root=tail;
             tail=temp;
         }
 
@@ -368,8 +368,8 @@ public class oddEven {
         }
         Node left;
         public void reveseLLRecursively_Another1(){
-            left=head;
-            reveseLLRecursively_AnotherHelper1(head,0);
+            left=root;
+            reveseLLRecursively_AnotherHelper1(root,0);
         }
 
         private void reveseLLRecursively_AnotherHelper1(Node right, int floor) {
@@ -390,11 +390,11 @@ public class oddEven {
         !    p c f
         !    9 8 7 6 5 4 3 2 1
         */
-        public static Node reveseLLRecursively_Another2(Node head){
-            if(head==null || head.next==null){
-                return head;
+        public static Node reveseLLRecursively_Another2(Node root){
+            if(root==null || root.next==null){
+                return root;
             }
-            Node current=head;
+            Node current=root;
             Node previous=null;
             Node forward=null;
             while(current!=null){
@@ -408,8 +408,8 @@ public class oddEven {
         //! Problem Cheak for Palindrome of LinkedList
         Node left_var;
         public boolean isPalindrome(){
-            left_var=head;
-            return isPalindrome_Helper(head);
+            left_var=root;
+            return isPalindrome_Helper(root);
         }
 
         private boolean isPalindrome_Helper(Node right_var) {
@@ -431,8 +431,8 @@ public class oddEven {
         //! fold the LinkedList
         Node leftN;
 		public void foldLL(){
-			leftN=head;
-			foldLL_Helper(head,0);
+			leftN=root;
+			foldLL_Helper(root,0);
 		}
 		public void foldLL_Helper(Node right,int floor){
 			if(right==null){
@@ -454,7 +454,7 @@ public class oddEven {
         Node leftO;
         public static LinkedList addTwoLL(LinkedList lst1,LinkedList lst2){
             LinkedList lst=new LinkedList();
-            int c=addTwoLL_Helper(lst1.head,lst1.size, lst2.head,lst2.size,lst);
+            int c=addTwoLL_Helper(lst1.root,lst1.size, lst2.root,lst2.size,lst);
             if(c>0){
                 lst.addFirst(c);
             }
@@ -491,7 +491,7 @@ public class oddEven {
         for(int i=1;i<=10;i++){
             lst.addLast(i*2);
         }
-        lst.reveseLLRecursively_Another2(lst.head);
+        lst.reveseLLRecursively_Another2(lst.root);
         // lst.display();
         /*
         ! for odd even
