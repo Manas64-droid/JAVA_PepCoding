@@ -2,6 +2,8 @@ package GenriclTree;
 
 import java.util.*;
 
+import javax.security.auth.kerberos.KerberosCredMessage;
+
 public class GenericTree_01_Intro {
     public static class Node {
         int data;
@@ -85,7 +87,6 @@ public class GenericTree_01_Intro {
         }
         return max;
     }
-
     public static int edgeHight(Node node) {
         int nodeHight = -1;
         for (Node child : node.children) {
@@ -389,6 +390,102 @@ public class GenericTree_01_Intro {
         }
         return true;
     }
+    //! if node is mirror image of itself then it is sysmetric
+    public static boolean isTreeSymmetric(Node node){
+        if(areTreesMirror(node, node)){
+            return true;
+        }
+        return false;
+    }
+    public static int predecessor;
+    public static int successor;
+    public static int state;
+    public static void predecessor_Successor(Node node,int target){
+        //! PREDECSSOR-just before target node
+        //! SUCCESSOR-just after target node
+        if(state==0){
+            if(node.data==target){
+                state=1;
+            }
+            else{
+                predecessor=node.data;
+            }
+        }
+        else if(state==1){
+            successor=node.data;
+            state=2;
+        }
+        for(Node child:node.children){
+            predecessor_Successor(child, target);
+        }
+    }
+    //! parameters are in stack while going into recurssion they become and while comming back
+    //! they ran away
+    //! but data members are in heap while going into recurssion they changes are allowed while
+    //! while comming out of recursion
+
+    public static int ceil;//smallest amoung larger ->MAX
+    public static int floor;//largest amoung smaller ->MIN
+    public static void ceil_floor(Node node,int target){
+        if(node.data>target){
+            if(node.data<ceil){
+                ceil=node.data;
+            }
+        }
+        if(node.data<target){
+            if(node.data>floor){
+                floor=node.data;
+            }
+        }
+        for(Node child:node.children){
+            ceil_floor(child, target);
+        }
+    }
+    public static int[] sort(Node node){
+        int arr[]=new int[node.children.size()];
+        int max=-1;
+        for(int i=0;i<node.children.size();i++){
+            max=Math.max(max, node.data);
+            arr[i]=max;
+        }
+        for(Node child:node.children){
+            kthLargest(child, arr.length);
+        }
+        return arr;
+    }
+    public static int kthLargest(Node node,int k){
+        floor=Integer.MIN_VALUE;
+        int factor=Integer.MAX_VALUE;
+        for(int i=0;i<k;i++){
+            ceil_floor(node, factor);
+            factor=floor;
+            floor=Integer.MIN_VALUE;
+        }
+        return factor;
+    }
+    public static int TreeSum(Node node){
+        int sum=0;
+        for(Node child:node.children){
+            int childSum=TreeSum(child);
+            sum+=childSum+node.data;
+        }
+        return sum;
+    }
+    static int maxDataAtNode=0;
+    static int maxSum=Integer.MIN_VALUE;
+    public static int subTreeSum(Node node){
+        int sum1=0;
+        for(Node child:node.children){
+            int ifChild=subTreeSum(child);
+            sum1+=ifChild;
+        }
+        sum1+=node.data;
+        if(sum1>maxSum){
+            maxDataAtNode=node.data;
+            maxSum=sum1;
+        }
+        return sum1;
+    }
     public static void main(String[] args) {
 
         int arr[] = {10,20,50,-1,60,-1,-1,30,70,-1,80,110,-1,120,-1,-1,90,-1,-1,40,100,-1,-1,-1};
@@ -429,6 +526,34 @@ public class GenericTree_01_Intro {
         // display(root);
 
         // System.out.println(areTreesSimilar(root, root1));
-        System.out.println(areTreesMirror(root, root1));
+        // System.out.println(areTreesMirror(root, root1));
+        // System.out.println(isTreeSymmetric(root));
+
+        // int target=40;
+        // predecessor_Successor(root, target);
+        // System.out.println(predecessor+" is predecessor of "+target);
+        // System.out.println(successor+" is successor of "+target);
+        
+        // ceil=Integer.MAX_VALUE;//smallest amoung larger
+        // floor=Integer.MIN_VALUE;//larger amoung smaller
+        // ceil_floor(root, 64);
+        // System.out.println(ceil);
+        // System.out.println(floor);
+        
+        // int copy[]=new int[root.children.size()];
+        // copy=sort(root);
+        
+        // for(int j=0;j<copy.length;j++){
+        //     System.out.print(arr[j]+" ");
+        // }
+        // System.out.println();
+
+        // System.out.println(kthLargest(root, 3));
+
+        // System.out.println(TreeSum(root));
+        
+        subTreeSum(root);
+        System.out.println(maxDataAtNode+"@"+maxSum);
+
     }
 }
