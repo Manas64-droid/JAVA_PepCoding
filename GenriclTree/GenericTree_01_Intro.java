@@ -486,6 +486,29 @@ public class GenericTree_01_Intro {
         }
         return sum1;
     }
+    public static void itreative_pre_post(Node node){
+        Stack<Pair> st=new Stack<>();
+        st.push(new Pair(node, -1));
+        String pre="",post="";
+        while(st.size()>0){
+            Pair top=st.peek();
+            if(top.level==-1){
+                pre+=top.node.data+" ";
+                top.level++;
+            }
+            else if(top.level==top.node.children.size()){
+                post+=top.node.data+" ";
+                st.pop();
+            }
+            else{
+                Pair childPair=new Pair(top.node.children.get(top.level),-1);
+                st.push(childPair);
+                top.level++;
+            }
+        }
+        System.out.println(pre);
+        System.out.println(post);
+    }
     public static void main(String[] args) {
 
         int arr[] = {10,20,50,-1,60,-1,-1,30,70,-1,80,110,-1,120,-1,-1,90,-1,-1,40,100,-1,-1,-1};
@@ -552,8 +575,9 @@ public class GenericTree_01_Intro {
 
         // System.out.println(TreeSum(root));
         
-        subTreeSum(root);
-        System.out.println(maxDataAtNode+"@"+maxSum);
+        // subTreeSum(root);
+        // System.out.println(maxDataAtNode+"@"+maxSum);
 
+        itreative_pre_post(root);
     }
 }
