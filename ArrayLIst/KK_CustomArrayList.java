@@ -1,6 +1,6 @@
 package ArrayLIst;
 import java.util.*;
-public class CustomArrayList {
+public class KK_CustomArrayList {
     public static class CustomArrayList1{
         int data[];
         int DEFAULT_SIZE=10;
