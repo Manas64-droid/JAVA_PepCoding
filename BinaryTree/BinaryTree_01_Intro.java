@@ -2,9 +2,11 @@ package BinaryTree;
 import java.lang.Thread.State;
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.logging.LogRecord;
 
 import javax.naming.spi.StateFactory;
 import javax.sound.midi.Patch;
+import javax.swing.text.html.HTMLDocument.RunElement;
 public class BinaryTree_01_Intro {
     public static class Node{
         int data;
@@ -285,7 +287,80 @@ public class BinaryTree_01_Intro {
         pathToLeafFromRoot(node.left, path+node.data+" ", sum+node.data, low, high);
         pathToLeafFromRoot(node.right, path+node.data+" ", sum+node.data, low, high);
     }
+    public static Node clonnedTree(Node node){
+        if(node==null){
+            return null;
+        }
+        Node leftChild=clonnedTree(node.left);
+        Node rightChild=clonnedTree(node.right);
 
+        Node newNode=new Node(node.data, leftChild, null);
+        node.left=newNode;
+        node.right=rightChild;
+        
+        return node;
+    }
+    public static Node retransform(Node clone){
+        if(clone==null){
+            return null;
+        }
+        clone.left=retransform(clone.left.left);
+        clone.right=retransform(clone.right);
+        return clone;
+    }
+    public static void singleChildNode(Node node,Node parent){//1
+        if(node==null){
+            return;
+        }
+        if(parent!=null && parent.left==node && parent.right==null){
+            System.out.println(node.data);
+        }
+        else if(parent!=null && parent.right==node && parent.right==null){
+            System.out.println(node.data);
+        }
+        singleChildNode(node.left, node);
+        singleChildNode(node.right, node);
+    }
+    public static Node removeLeaf(Node node){//2
+        if(node==null){
+            return null;
+        }
+        if(node.left==null && node.right==null){
+            return null;
+        }
+        node.left=removeLeaf(node.left);
+        node.right= removeLeaf(node.right);
+        return node;
+    }
+    public static int diameter(Node node){//3
+        if(node==null){
+            return 0;
+        }
+        int leftChild= diameter(node.left);
+        int rightChild=diameter(node.right);
+        int factor=height(node.left)+height(node.right)+2;
+        return Math.max(factor, Math.max(leftChild, rightChild));
+    }
+    public static class Diapair{
+        int height;
+        int diameter;
+    }// second sol
+    public static Diapair diameter2(Node node){
+        if(node==null){
+            Diapair basePair=new Diapair();
+            basePair.height=-1;
+            basePair.diameter=0;
+            return basePair;
+        }
+        Diapair leftChildPair=diameter2(node.left);
+        Diapair rightChildPair=diameter2(node.right);
+
+        Diapair mainPair=new Diapair();
+        mainPair.height=Math.max(leftChildPair.height, rightChildPair.height)+1;
+        int factor=leftChildPair.height+rightChildPair.height+2;
+        mainPair.diameter=Math.max(factor,Math.max(leftChildPair.diameter, rightChildPair.diameter));
+        return mainPair;
+    }
     public static void main(String[] args) {
         Integer arr[]={50,25,12,null,null,37,30,null,null,null,75,62,null,70,null,null,87,null,null};
         Node root=constructTree(arr);
@@ -313,7 +388,26 @@ public class BinaryTree_01_Intro {
         // printKthLevelDown(root, 4);
 
         // printNodesKLevelFar(root, 2, 37);
-        pathToLeafFromRoot(root, "", 0, 2, 80);
+        // pathToLeafFromRoot(root, "", 0, 150, 250);
         
+        // display(root);
+        // Node clonned=clonnedTree(root);
+        // System.out.println();
+        // display(clonned);
+
+        // System.out.println();
+        // retransform(clonned);
+        // display(clonned);
+
+        // singleChildNode(root,null);
+
+        // display( root);
+        // System.out.println();
+        // removeLeaf( root);
+        // display( root);
+
+        System.out.println(diameter(root));
+        Diapair test=diameter2(root);
+        System.out.println(test.diameter);
     }
 }
