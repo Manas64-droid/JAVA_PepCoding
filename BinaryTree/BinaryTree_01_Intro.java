@@ -1,6 +1,7 @@
 package BinaryTree;
 import java.lang.Thread.State;
 import java.lang.reflect.Array;
+import java.net.Inet4Address;
 import java.util.*;
 import java.util.logging.LogRecord;
 
@@ -361,10 +362,78 @@ public class BinaryTree_01_Intro {
         mainPair.diameter=Math.max(factor,Math.max(leftChildPair.diameter, rightChildPair.diameter));
         return mainPair;
     }
+    public static int tilt=0;
+    public static int tiltOfBinaryTree(Node node){//4
+        if(node==null){
+            return 0;
+        }
+        int leftChild=tiltOfBinaryTree(node.left);
+        int rightchild=tiltOfBinaryTree(node.right);
+
+        tilt+=Math.abs(leftChild-rightchild);
+        return leftChild+rightchild+node.data;
+    }
+    public static class isBST{
+        boolean isTrue;
+        int min;
+        int max;
+        Node root;
+        int size;
+    }
+    public static isBST isBinaryTreeBST(Node node){//5
+        if(node==null ){
+            isBST basePair=new isBST();
+            basePair.isTrue=true; // because single node is bst dont have childs so
+            basePair.max=Integer.MIN_VALUE;
+            basePair.min=Integer.MAX_VALUE;
+            return basePair;
+        }
+        isBST leftChildPair=isBinaryTreeBST(node.left);
+        isBST rightChildPair=isBinaryTreeBST(node.right);
+
+        isBST mainPair=new isBST();
+        mainPair.isTrue=leftChildPair.isTrue && rightChildPair.isTrue && (node.data>=leftChildPair.max && node.data<=rightChildPair.min);
+        mainPair.max=Math.max(node.data, Math.max(leftChildPair.max, rightChildPair.max));
+        mainPair.min=Math.max(node.data, Math.max(leftChildPair.min, rightChildPair.min));
+        return mainPair;
+    }
+    public static isBST largesBSTSubtree(Node node){
+        if(node==null){
+            isBST basePair=new isBST();
+            basePair.isTrue=true;
+            basePair.min=Integer.MAX_VALUE;
+            basePair.max=Integer.MIN_VALUE;
+            basePair.root=null;
+            basePair.size=0;
+            return basePair;
+        }
+        isBST leftChildPair=largesBSTSubtree(node.left);
+        isBST righChildPair=largesBSTSubtree(node.right);
+
+        isBST mainPair=new isBST();
+        mainPair.isTrue=leftChildPair.isTrue && righChildPair.isTrue && (node.data>=leftChildPair.max && node.data<=righChildPair.min);
+        mainPair.max=Math.max(node.data, Math.max(leftChildPair.max, righChildPair.max));
+        mainPair.min=Math.max(node.data, Math.max(leftChildPair.min, righChildPair.min));
+
+        if(mainPair.isTrue){
+            mainPair.root=node;
+            mainPair.size=leftChildPair.size+righChildPair.size+1;
+        }
+        else if(leftChildPair.size>righChildPair.size){
+            mainPair.root=leftChildPair.root;
+            mainPair.size=leftChildPair.size;
+        }
+        else{
+            mainPair.root=righChildPair.root;
+            mainPair.size=righChildPair.size;
+        }
+
+        return mainPair;
+    }
     public static void main(String[] args) {
-        Integer arr[]={50,25,12,null,null,37,30,null,null,null,75,62,null,70,null,null,87,null,null};
+        Integer arr[]={50,25,12,null,null,37,30,null,null,null,75,62,null,77,null,null,87,null,null};
         Node root=constructTree(arr);
-        // display(root);
+        display(root);
         // System.out.println(size(root));
         // System.out.println(sum(root));
         // System.out.println(max(root));
@@ -406,8 +475,19 @@ public class BinaryTree_01_Intro {
         // removeLeaf( root);
         // display( root);
 
-        System.out.println(diameter(root));
-        Diapair test=diameter2(root);
-        System.out.println(test.diameter);
+        // System.out.println(diameter(root));
+        // Diapair test=diameter2(root);
+        // System.out.println(test.diameter);
+
+        // System.out.println(tilt);
+        // tiltOfBinaryTree(root);
+        // System.out.println(tilt);
+
+        
+        //isBST test=isBinaryTreeBST(root);
+        //System.out.println(test.isTrue);
+
+        isBST largestBSTSubTree=largesBSTSubtree(root);
+        System.out.println(largestBSTSubTree.root.data);
     }
 }
